@@ -47,29 +47,19 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	assertEquality(g.phase, testg.phase, message, &result);
 	// numActions
 	sprintf(message, "FAILED: %s numActions\n", functionName);
-	assertEquality(g.numActions, testg.numActions - 1, message, &result);
+	assertEquality(g.numActions, testg.numActions + 1, message, &result);
 	// coins
 	sprintf(message, "FAILED: %s coins\n", functionName);	
-	int coin_update = testg.coins - 1;
-	if (g.hand[0][0] == copper) {
-		coin_update++;
-	}
-	if (g.hand[0][5] == copper) {
-		coin_update++;
-	}
-	if (g.hand[0][6] == copper) {
-		coin_update++;
-	}
-	assertEquality(g.coins, coin_update, message, &result);
+	assertEquality(g.coins, testg.coins, message, &result);
 	// numBuys
 	sprintf(message, "FAILED: %s numBuys\n", functionName);	
 	assertEquality(g.numBuys, testg.numBuys, message, &result);
 	// hand
 	for (i = 0; i < numPlayers; i++) {
 		for (j = 0; j < MAX_HAND; j++) {
-			if (i == 0 && (j == 5 || j == 6)) {
-				sprintf(message, "FAILED: %s hand player %d, pos %d\n", functionName, i, j);			
-				assertEquality(g.hand[i][j], 4, message, &result);                 				
+			if (i == 0 && j == 5) {
+				sprintf(message, "FAILED: %s hand player %d, pos %d\n", functionName, i, j);					
+  			assertEquality(g.hand[i][j], -1, message, &result);
 			} else {
 				sprintf(message, "FAILED: %s hand player %d, pos %d\n", functionName, i, j);			
 				assertEquality(g.hand[i][j], testg.hand[i][j], message, &result);
@@ -78,13 +68,8 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	}	
 	// handCount
 	for (i = 0; i < numPlayers; i++) {
-		if (i == 0) {
-			sprintf(message, "FAILED: %s handCount player %d\n", functionName, i);			
-			assertEquality(g.handCount[i], 7, message, &result); 
-		} else {
-			sprintf(message, "FAILED: %s handCount player %d\n", functionName, i);			
-			assertEquality(g.handCount[i], testg.handCount[i], message, &result); 
-		}
+		sprintf(message, "FAILED: %s handCount %d\n", functionName, i);			
+		assertEquality(g.handCount[i], testg.handCount[i], message, &result);
 	}		
 	// deck
 	for (i = 0; i < numPlayers; i++) {
@@ -95,12 +80,12 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	}
 	// deckCount
 	for (i = 0; i < numPlayers; i++) {
-		if (i == 0) {		
-			sprintf(message, "FAILED: %s deckCount player %d\n", functionName, i);			
-			assertEquality(g.deckCount[i], 2, message, &result);
+		if (i == 0) {
+			sprintf(message, "FAILED: %s deckCount %d\n", functionName, i);			
+			assertEquality(g.deckCount[i], 4, message, &result); 
 		} else {
-			sprintf(message, "FAILED: %s deckCount player %d\n", functionName, i);			
-			assertEquality(g.deckCount[i], testg.deckCount[i], message, &result);
+			sprintf(message, "FAILED: %s deckCount %d\n", functionName, i);			
+			assertEquality(g.deckCount[i], testg.deckCount[i], message, &result); 
 		}
 	}
 	// discard
@@ -112,17 +97,17 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	}
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
-		sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
+		sprintf(message, "FAILED: %s discardCount %d\n", functionName, i);			
 		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {
 		if (i == 0) {
 			sprintf(message, "FAILED: %s playedCards %d\n", functionName, i);			
-    	assertEquality(g.playedCards[i], 13, message, &result);
+ 			assertEquality(g.playedCards[i], 14, message, &result); 
 		} else {
 			sprintf(message, "FAILED: %s playedCards %d\n", functionName, i);			
- 			assertEquality(g.playedCards[i], testg.playedCards[i], message, &result);
+ 			assertEquality(g.playedCards[i], testg.playedCards[i], message, &result); 
 		}
 	}
 	// playedCardCount
@@ -145,13 +130,13 @@ int main() {
 	
 	initializeGame(numPlayers, k, seed, &testg);
 
-	printf("-----  Testing Smithy card  -----\n");
+	printf("-----  Testing Village card  -----\n");
 
 	// Test 1 
 	memcpy(&g, &testg, sizeof(struct gameState));
-	g.hand[0][0] = smithy;
+	g.hand[0][0] = village;
 	int outcome = playCard(0, 0, 0, 0, &g);
-	sprintf(message, "FAIL: Test 1 Smithy card outcome should be 0\n");
+	sprintf(message, "FAIL: Test 1 Village card outcome should be 0\n");
 	assertEquality(outcome, 0, message, &result);
 	// compareGameStateTest1 
 	result = compareGameStateTest1(numPlayers, g, testg);
@@ -160,9 +145,9 @@ int main() {
 	}
 
 	if (result) {
-		printf("\n+++++ : PASS, cardtest1 passed.\n");
+		printf("\n+++++ : PASS, cardtest3 passed.\n");
 	} else {
-		printf("\n+++++ : FAIL, cardtest1 failed.\n");	
+		printf("\n+++++ : FAIL, cardtest3 failed.\n");	
 	}
 
 	return 0;
