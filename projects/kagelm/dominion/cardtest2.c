@@ -106,7 +106,7 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
 		sprintf(message, "FAILED: %s discardCount %d\n", functionName, i);			
-		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+		assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {
@@ -134,7 +134,7 @@ int main() {
 	//int thisPlayer = 0;
 	int numPlayers = 2;
 	int result = 1;
-	//char message[512];
+	char message[512];
 	
 	initializeGame(numPlayers, k, seed, &testg);
 
@@ -143,9 +143,9 @@ int main() {
 	// Test 1 
 	memcpy(&g, &testg, sizeof(struct gameState));
 	g.hand[0][0] = adventurer;
-	//int outcome = playCard(0, 0, 0, 0, &g);
-	//sprintf(message, "FAIL: Test 1 Adventurer card outcome should be 0\n");
-	//assertEquality(outcome, 0, message, &result);
+	int outcome = playCard(0, 0, 0, 0, &g);
+	sprintf(message, "FAIL: Test 1 Adventurer card outcome should be 0\n");
+	assertEquality(outcome, 0, message, &result);
 	// compareGameStateTest1 
 	result = compareGameStateTest1(numPlayers, g, testg);
 	if (!result) {

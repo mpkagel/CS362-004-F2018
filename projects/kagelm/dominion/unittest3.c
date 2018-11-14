@@ -99,10 +99,10 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	for (i = 0; i < numPlayers; i++) {
 		if (i == 0) {
 			sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-			assertEquality(g.discardCount[i], testg.discardCount[j] + 1, message, &result); 		
+			assertEquality(g.discardCount[i], testg.discardCount[i] + 1, message, &result); 		
 		} else {
 			sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-			assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+			assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 		}
 	}
 	// playedCards
@@ -193,7 +193,7 @@ int compareGameStateTest2(int numPlayers, struct gameState g, struct gameState t
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
 		sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+		assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {
@@ -283,7 +283,7 @@ int compareGameStateTest3(int numPlayers, struct gameState g, struct gameState t
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
 		sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+		assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {
@@ -378,7 +378,7 @@ int compareGameStateTest4(int numPlayers, struct gameState g, struct gameState t
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
 		sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+		assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {

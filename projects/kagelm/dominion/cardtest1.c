@@ -113,7 +113,7 @@ int compareGameStateTest1(int numPlayers, struct gameState g, struct gameState t
 	// discardCount
 	for (i = 0; i < numPlayers; i++) {
 		sprintf(message, "FAILED: %s discardCount player %d\n", functionName, i);			
-		assertEquality(g.discardCount[i], testg.discardCount[j], message, &result);
+		assertEquality(g.discardCount[i], testg.discardCount[i], message, &result);
 	}
 	// playedCards
 	for (i = 0; i < 100; i++) {
